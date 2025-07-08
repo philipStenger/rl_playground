@@ -1,0 +1,131 @@
+[build-system]
+requires = ["setuptools>=61.0", "wheel"]
+build-backend = "setuptools.build_meta"
+
+[project]
+name = "rl-playground"
+version = "0.1.0"
+description = "A playground for experimenting with reinforcement learning algorithms and environments"
+readme = "README.md"
+requires-python = ">=3.8"
+license = {text = "MIT"}
+authors = [
+    {name = "Your Name", email = "your.email@example.com"}
+]
+keywords = ["reinforcement-learning", "deep-learning", "q-learning", "dqn", "policy-gradient", "gymnasium"]
+classifiers = [
+    "Development Status :: 3 - Alpha",
+    "Intended Audience :: Science/Research",
+    "License :: OSI Approved :: MIT License",
+    "Programming Language :: Python :: 3",
+    "Programming Language :: Python :: 3.8",
+    "Programming Language :: Python :: 3.9",
+    "Programming Language :: Python :: 3.10",
+    "Programming Language :: Python :: 3.11",
+    "Programming Language :: Python :: 3.12",
+    "Topic :: Scientific/Engineering :: Artificial Intelligence",
+    "Topic :: Games/Entertainment :: Simulation",
+]
+
+dependencies = [
+    "gymnasium>=0.28.0",
+    "torch>=2.0.0",
+    "torchvision>=0.15.0",
+    "numpy>=1.24.0",
+    "matplotlib>=3.7.0",
+    "seaborn>=0.12.0",
+    "pandas>=2.0.0",
+    "tqdm>=4.65.0",
+    "wandb>=0.15.0",
+    "tensorboard>=2.13.0",
+    "opencv-python>=4.8.0",
+    "stable-baselines3>=2.0.0",
+]
+
+[project.optional-dependencies]
+dev = [
+    "pytest>=7.0.0",
+    "pytest-cov>=4.0.0",
+    "black>=23.0.0",
+    "flake8>=6.0.0",
+    "mypy>=1.0.0",
+    "jupyter>=1.0.0",
+]
+atari = [
+    "gymnasium[atari]>=0.28.0",
+    "ale-py>=0.8.1",
+]
+mujoco = [
+    "gymnasium[mujoco]>=0.28.0",
+    "mujoco>=2.3.0",
+]
+
+[project.urls]
+Homepage = "https://github.com/yourusername/rl-playground"
+Repository = "https://github.com/yourusername/rl-playground"
+Documentation = "https://github.com/yourusername/rl-playground#readme"
+Issues = "https://github.com/yourusername/rl-playground/issues"
+
+[project.scripts]
+rl-train = "rl_playground.main:main"
+
+[tool.setuptools.packages.find]
+where = ["."]
+include = ["src*"]
+
+[tool.setuptools.package-dir]
+"" = "."
+"rl_playground" = "src"
+
+[tool.black]
+line-length = 88
+target-version = ['py38']
+include = '\.pyi?$'
+exclude = '''
+/(
+    \.eggs
+  | \.git
+  | \.hg
+  | \.mypy_cache
+  | \.tox
+  | \.venv
+  | _build
+  | buck-out
+  | build
+  | dist
+)/
+'''
+
+[tool.pytest.ini_options]
+testpaths = ["tests"]
+python_files = ["test_*.py"]
+python_classes = ["Test*"]
+python_functions = ["test_*"]
+addopts = "--cov=src --cov-report=html --cov-report=term-missing"
+
+[tool.mypy]
+python_version = "3.8"
+warn_return_any = true
+warn_unused_configs = true
+disallow_untyped_defs = true
+disallow_incomplete_defs = true
+check_untyped_defs = true
+disallow_untyped_decorators = true
+no_implicit_optional = true
+warn_redundant_casts = true
+warn_unused_ignores = true
+warn_no_return = true
+warn_unreachable = true
+strict_equality = true
+
+[tool.coverage.run]
+source = ["src"]
+omit = ["*/tests/*"]
+
+[tool.coverage.report]
+exclude_lines = [
+    "pragma: no cover",
+    "def __repr__",
+    "raise AssertionError",
+    "raise NotImplementedError",
+]
